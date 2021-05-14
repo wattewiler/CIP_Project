@@ -1,0 +1,29 @@
+#### cleaning ländercode.csv
+####
+#### input: länderkode.csv
+#### output: länderkode_stage.csv
+
+
+#load libraries and set genreals
+import warnings
+warnings.filterwarnings('ignore')
+from distutils.version import StrictVersion
+import pandas as pd
+assert StrictVersion(pd.__version__) >= StrictVersion('0.19.0')
+import seaborn as sns
+assert StrictVersion(sns.__version__) >= StrictVersion('0.7.0')
+
+#load data
+df = pd.read_csv('länderkode.csv', header=0, sep='\t', encoding='utf-8')
+
+#first -> generals and irregularities inspection
+df.head()
+df.count()
+df.info()
+
+#drop superfluous column
+df = df.drop(columns="ISO-2")
+df = df.drop(columns="numerisch")
+
+#save data frame into new csv file
+df.to_csv(r'länderkode_stage.csv', index = False, header=True)
