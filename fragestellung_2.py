@@ -109,7 +109,19 @@ b = {"Afrika": [delta_gdp_r("Afrika")],
     "Suedamerika": [delta_gdp_r("Suedamerika")]
      }
 b_df = pd.DataFrame(b)
+#invert index with column, and sort gdp ascending
+xx = b_df.T
+xx = xx.sort_values(by=0)
+xx = yy.reset_index()
+yy = a_df.T
+yy = yy.sort_values(by=0)
+yy = yy.reset_index()
+yy = yy.columns = ["Kontinent", "GDP"]
 
+df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
+yy.plot()
+
+ax = yy.plot.bar(x='lab', y='val', rot=0)
 
 #plot the absolte and relational difference
 b_df.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
@@ -118,7 +130,6 @@ plt.ylabel('USD')
 plt.legend()
 plt.title('Contintental GDP 2000 vs 2019')
 
-b_df.plot()
 
 ### lessons learned
 #scientific notation (3.45e+08), stored in a text type, can be correctly interpreted...
