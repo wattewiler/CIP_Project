@@ -67,7 +67,7 @@ df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
 df_piv.plot()
 
 #######################
-#drop , resp. keep only row with year 2000 and 2019
+#keep only row with year 2000 or 2019
 df_j = df_joined_2.drop(df_joined_2[(df_joined_2.YearCode != 2000) & (df_joined_2.YearCode != 2019)].index)
 df_j.head()
 df_j.info()
@@ -78,19 +78,48 @@ new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
 #reset the index to columns
 df_res = new_df.reset_index()
 
+#creation of a function in order to calculate absolut difference of the GDP's
 def delta_gdp(name):
-    d = (df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)]) - (df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2000)])
+    d = float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2019)]) - \
+        float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
     return d
 
+#creation of a function in order to calculate relative difference of the GDP's
+def delta_gdp_r(name):
+    d = float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2019)]) / \
+        float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
+    return d
 
-d = df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)]
-d = (df_res['AggValue'][(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)])
-c = (df_res['AggValue'][(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2000)])
-e = d - c
+a = {"Afrika": [delta_gdp("Afrika")],
+    "Asien": [delta_gdp("Asien")],
+    "Australien": [delta_gdp("Australien")],
+    "Europa": [delta_gdp("Europa")],
+    "Europa/Asien": [delta_gdp("Europa/Asien")],
+    "Nordamerika": [delta_gdp("Nordamerika")],
+    "Suedamerika": [delta_gdp("Suedamerika")]
+     }
+a_df = pd.DataFrame(a)
 
-#plot
-df_res.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
+b = {"Afrika": [delta_gdp_r("Afrika")],
+    "Asien": [delta_gdp_r("Asien")],
+    "Australien": [delta_gdp_r("Australien")],
+    "Europa": [delta_gdp_r("Europa")],
+    "Europa/Asien": [delta_gdp_r("Europa/Asien")],
+    "Nordamerika": [delta_gdp_r("Nordamerika")],
+    "Suedamerika": [delta_gdp_r("Suedamerika")]
+     }
+b_df = pd.DataFrame(b)
+
+
+#plot the absolte and relational difference
+b_df.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
 plt.xlabel('time')
 plt.ylabel('USD')
 plt.legend()
 plt.title('Contintental GDP 2000 vs 2019')
+
+b_df.plot()
+
+### lessons learned
+#scientific notation (3.45e+08), stored in a text type, can be correctly interpreted...
+# by converting it as float number
