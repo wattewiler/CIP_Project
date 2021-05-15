@@ -21,6 +21,12 @@ df.head()
 df.count()
 df.info()
 
+#convert any ä, ü and ö into ae, ue and oe - for unification purposes with c1
+df = df.replace('ä', 'ae', regex=True)
+df = df.replace('ö', 'oe', regex=True)
+df = df.replace('ü', 'ue', regex=True)
+df
+
 #drop superfluous column
 df = df.drop(columns="ISO-2")
 df = df.drop(columns="numerisch")

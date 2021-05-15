@@ -14,13 +14,20 @@ import seaborn as sns
 assert StrictVersion(sns.__version__) >= StrictVersion('0.7.0')
 
 #load data
-df = pd.read_csv('wm_dirty.csv', header=None, names=['Land', 'Jahr'], encoding='utf-8')
+df = pd.read_csv('wm_dirty.csv', header=None, names=['Land', 'Jahr'], encoding='utf-8' )
 
 #first -> general and irregularities inspection
 df.head()
 df.count()
 df.info()
 df.isnull()
+
+#convert any ä, ü and ö into ae, ue and oe - for unification purposes with c1
+df = df.replace('ä', 'ae', regex=True)
+df = df.replace('ö', 'oe', regex=True)
+df = df.replace('ü', 'ue', regex=True)
+df
+
 
 #first cleaning
 print(df['Land'][14])
