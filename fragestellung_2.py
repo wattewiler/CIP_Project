@@ -78,6 +78,16 @@ new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
 #reset the index to columns
 df_res = new_df.reset_index()
 
+def delta_gdp(name):
+    d = (df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)]) - (df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2000)])
+    return d
+
+
+d = df_res[(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)]
+d = (df_res['AggValue'][(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2019)])
+c = (df_res['AggValue'][(df_res.Kontinent == "Afrika") & (df_res.YearCode == 2000)])
+e = d - c
+
 #plot
 df_res.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
 plt.xlabel('time')
