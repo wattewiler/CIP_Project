@@ -59,26 +59,26 @@ df_i2 = df_joined_2.set_index(['Kontinent', 'YearCode'])
 new_df2 = df_i2.groupby(level= ['Kontinent', 'YearCode']).sum()
 
 #reset the index to columns
-df_res = new_df.reset_index()
 df_res2 = new_df2.reset_index()
-df_res
 df_res2.info()
 
 #first time-gdp analysis
 df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
 df_piv.plot()
 
+#######################
 #drop , resp. keep only row with year 2000 and 2019
 df_j = df_joined_2.drop(df_joined_2[(df_joined_2.YearCode != 2000) & (df_joined_2.YearCode != 2019)].index)
 df_j.head()
 df_j.info()
-df_j
 
 #index the df and group index with sum of column value
 df_i = df_j.set_index(['Kontinent', 'YearCode'])
 new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
+#reset the index to columns
+df_res = new_df.reset_index()
 
-#first analysis
+#plot
 df_res.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
 plt.xlabel('time')
 plt.ylabel('USD')
