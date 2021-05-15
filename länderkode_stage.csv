@@ -1,6 +1,6 @@
 Land,ISO-3
 Afghanistan,AFG
-Ägypten,EGY
+Aegypten,EGY
 Albanien,ALB
 Algerien,DZA
 Amerikanische Jungferninseln,VIR
@@ -9,12 +9,12 @@ Andorra,AND
 Angola,AGO
 Anguilla,AIA
 Antigua und Barbuda,ATG
-Äquatorialguinea,GNQ
+Aequatorialguinea,GNQ
 Argentinien,ARG
 Armenien,ARM
 Aruba,ABW
 Aserbaidschan,AZE
-Äthiopien,ETH
+Aethiopien,ETH
 Australien,AUS
 Bahamas,BHS
 Bahrain,BHR
@@ -43,7 +43,7 @@ Cookinseln,COK
 Costa Rica,CRI
 Côte d'Ivoire,CIV
 Curaçao,CUW
-Dänemark,DNK
+Daenemark,DNK
 Deutschland,DEU
 Dominica,DMA
 Dominikanische Republik,DOM
@@ -54,12 +54,12 @@ Eritrea,ERI
 Estland,EST
 Eswatini,SWZ
 Falklandinseln,FLK
-Färöer,FRO
+Faeroeer,FRO
 Fidschi,FJI
 Finnland,FIN
 Frankreich,FRA
-Französisch-Guayana,GUF
-Französisch-Polynesien,PYF
+Franzoesisch-Guayana,GUF
+Franzoesisch-Polynesien,PYF
 Gabun,GAB
 Gambia,GMB
 Gazastreifen,PSE
@@ -68,7 +68,7 @@ Ghana,GHA
 Gibraltar,GIB
 Grenada,GRD
 Griechenland,GRC
-Grönland,GRL
+Groenland,GRL
 Großbritannien,GBR
 Guadeloupe,GLP
 Guam,GUM
@@ -155,12 +155,12 @@ Niederlande,NLD
 Niger,NER
 Nigeria,NGA
 Niue,NIU
-Nördliche Marianen,MNP
+Noerdliche Marianen,MNP
 Nordmazedonien,MKD
 Norfolkinsel,NFK
 Norwegen,NOR
 Oman,OMN
-Österreich,AUT
+Oesterreich,AUT
 Pakistan,PAK
 Palau,PLW
 Panama,PAN
@@ -174,8 +174,8 @@ Portugal,PRT
 Puerto Rico,PRI
 Réunion,REU
 Ruanda,RWA
-Rumänien,ROU
-Russische Föderation,RUS
+Rumaenien,ROU
+Russische Foederation,RUS
 Saba,BES
 Saint-Martin,MAF
 Salomonen,SLB
@@ -205,10 +205,10 @@ St. Kitts und Nevis,KNA
 St. Lucia,LCA
 St. Pierre und Miquelon,SPM
 St. Vincent und die Grenadinen,VCT
-Südafrika,ZAF
+Suedafrika,ZAF
 Sudan,SDN
-Südgeorgien und die Südlichen Sandwichinseln,SGS
-Südsudan,SSD
+Suedgeorgien und die Suedlichen Sandwichinseln,SGS
+Suedsudan,SSD
 Suriname,SUR
 Syrien,SYR
 Tadschikistan,TJK
@@ -223,7 +223,7 @@ Trinidad und Tobago,TTO
 Tschad,TCD
 Tschechische Republik,CZE
 Tunesien,TUN
-Türkei,TUR
+Tuerkei,TUR
 Turkmenistan,TKM
 Turks- und Caicosinseln,TCA
 Tuvalu,TUV

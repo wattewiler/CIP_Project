@@ -5,13 +5,8 @@
 
 
 #load libraries and set genreals
-import warnings
-warnings.filterwarnings('ignore')
-from distutils.version import StrictVersion
 import pandas as pd
-assert StrictVersion(pd.__version__) >= StrictVersion('0.19.0')
-import seaborn as sns
-assert StrictVersion(sns.__version__) >= StrictVersion('0.7.0')
+
 
 #load data - first probelm with unintended presence of 3rd column
 #df = pd.read_csv('country_dirty.csv')

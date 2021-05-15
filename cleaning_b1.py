@@ -5,13 +5,8 @@
 
 
 #load libraries and set genreals
-import warnings
-warnings.filterwarnings('ignore')
-from distutils.version import StrictVersion
 import pandas as pd
-assert StrictVersion(pd.__version__) >= StrictVersion('0.19.0')
-import seaborn as sns
-assert StrictVersion(sns.__version__) >= StrictVersion('0.7.0')
+
 
 #load data
 df = pd.read_csv('wm_dirty.csv', header=None, names=['Land', 'Jahr'], encoding='utf-8' )
@@ -26,8 +21,10 @@ df.isnull()
 df = df.replace('ä', 'ae', regex=True)
 df = df.replace('ö', 'oe', regex=True)
 df = df.replace('ü', 'ue', regex=True)
+df = df.replace('Ä', 'Ae', regex=True)
+df = df.replace('Ö', 'Oe', regex=True)
+df = df.replace('Ü', 'Ue', regex=True)
 df
-
 
 #first cleaning
 print(df['Land'][14])
