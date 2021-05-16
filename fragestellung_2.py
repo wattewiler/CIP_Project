@@ -8,6 +8,13 @@
 #load libraries
 import pandas as pd
 from matplotlib import pyplot as plt
+from matplotlib.ticker import (
+                               FormatStrFormatter,
+                               AutoMinorLocator,
+                               FuncFormatter,
+                               )
+import matplotlib.dates as mdates
+from matplotlib.dates import DateFormatter
 
 #load data
 df_c = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
@@ -68,6 +75,8 @@ df_res2.info()
 #first data analyis: gdp-time by continent
 df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
 df_piv.plot()
+#safe plot as png
+plt.savefig('fragestellung_2_gdp_time_by_continent')
 
 #######################
 #keep only row with year 2000 or 2019
@@ -120,15 +129,28 @@ x1 = xx.sort_values(by=0)
 x2 = x1.reset_index()
 x2.columns = ["Kontinent", "GDP"]
 x2.plot.bar(x='Kontinent', y='GDP', color = "green")
+plt.xticks(rotation=20, horizontalalignment="center")
 plt.title('relative change of GDP')
+
+#safe plot as png
+plt.savefig('fragestellung_2_relative_change_of_gdp')
 
 yy = a_df.T
 y1 = yy.sort_values(by=0)
 y2 = y1.reset_index()
 y2.columns = ["Kontinent", "GDP"]
 y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
-plt.title('absolut change of GDP')
+plt.xticks(rotation=20, horizontalalignment="center")
+plt.title('fragestellung_2_absolut_change_of_gdp')
 
+
+#safe plot as png
+plt.savefig('fragestellung_2_absolut change of GDP')
+
+
+#insert plots into excel - create excel file with one sheet per plot (3x)
+writer = pd.ExcelWriter('fragestellung_2_resultat.xlsx', engine = 'xlsxwriter')
+global_num.to_excel(writer, sheet_name='Sheet1')
 
 #### lessons learned
 # - scientific notation (3.45e+08), stored as a text type, can be correctly interpreted in python
