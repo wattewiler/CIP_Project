@@ -43,4 +43,4 @@ with pd.option_context('display.max_rows', None, 'display.max_columns', None):  
 df.info()
 
 # Schlussendlich werden die Daten in ein neues CSV-File geschrieben
-df[['Jahr_stage', 'Land_code_stage', 'Anlass_stage']].to_csv(csv_output_name, index = False, header=True)
+df['Jahr_stage', 'Land_code_stage', 'Anlass_stage'].to_csv(csv_output_name, index = False, header=True)
