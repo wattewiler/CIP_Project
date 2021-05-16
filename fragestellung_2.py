@@ -8,13 +8,8 @@
 #load libraries
 import pandas as pd
 from matplotlib import pyplot as plt
-from matplotlib.ticker import (
-                               FormatStrFormatter,
-                               AutoMinorLocator,
-                               FuncFormatter,
-                               )
-import matplotlib.dates as mdates
-from matplotlib.dates import DateFormatter
+import xlsxwriter
+
 
 #load data
 df_c = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
@@ -90,7 +85,7 @@ new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
 #reset the index -> indexes become columns
 df_res = new_df.reset_index()
 
-#creation of a function, in order to calculate absolut difference of the GDP's
+#creation of a function, in order to calculate absolute difference of the GDP's
 def delta_gdp(name):
     d = float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2019)]) - \
         float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
@@ -141,16 +136,20 @@ y2 = y1.reset_index()
 y2.columns = ["Kontinent", "GDP"]
 y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
 plt.xticks(rotation=20, horizontalalignment="center")
-plt.title('fragestellung_2_absolut_change_of_gdp')
+plt.title('fragestellung_2_absolute_change_of_gdp')
 
 
 #safe plot as png
-plt.savefig('fragestellung_2_absolut change of GDP')
-
+plt.savefig('fragestellung_2_absolute_change_of_gdp')
 
 #insert plots into excel - create excel file with one sheet per plot (3x)
-writer = pd.ExcelWriter('fragestellung_2_resultat.xlsx', engine = 'xlsxwriter')
-global_num.to_excel(writer, sheet_name='Sheet1')
+workbook = xlsxwriter.Workbook('fragestellung_2_resultat.xlsx')
+worksheet = workbook.add_worksheet()
+worksheet.insert_image('B2', 'fragestellung_2_gdp_time_by_continent.png')
+worksheet.insert_image('L2', 'fragestellung_2_absolute_change_of_gdp.png')
+worksheet.insert_image('V2', 'fragestellung_2_relative_change_of_gdp.png')
+
+workbook.close()
 
 #### lessons learned
 # - scientific notation (3.45e+08), stored as a text type, can be correctly interpreted in python
