@@ -126,10 +126,10 @@ x2 = x1.reset_index()
 x2.columns = ["Kontinent", "GDP"]
 x2.plot.bar(x='Kontinent', y='GDP', color = "green")
 plt.xticks(rotation=20, horizontalalignment="center")
-plt.title('relative change of GDP')
+plt.title('relative change of GDP (2000-2019)')
 
 #safe plot as png
-plt.savefig('fragestellung_2_relative_change_of_gdp')
+plt.savefig('fragestellung_2_relative_change_of_gdp (2000-2019)')
 
 yy = a_df.T
 y1 = yy.sort_values(by=0)
@@ -137,11 +137,11 @@ y2 = y1.reset_index()
 y2.columns = ["Kontinent", "GDP"]
 y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
 plt.xticks(rotation=20, horizontalalignment="center")
-plt.title('fragestellung_2_absolute_change_of_gdp')
+plt.title('fragestellung_2_absolute_change_of_gdp (2000-2019)')
 
 
 #safe plot as png
-plt.savefig('fragestellung_2_absolute_change_of_gdp')
+plt.savefig('fragestellung_2_absolute_change_of_gdp (2000-2019)')
 
 #insert plots into excel - create excel file with one sheet per plot (3x)
 workbook = xlsxwriter.Workbook('fragestellung_2_resultat.xlsx')
