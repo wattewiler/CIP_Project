@@ -70,6 +70,7 @@ df_res2.info()
 #first data analyis: gdp-time by continent
 df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
 df_piv.plot()
+plt.title("gdp_over_time_by_continent")
 #safe plot as png
 plt.savefig('fragestellung_2_gdp_time_by_continent')
 
