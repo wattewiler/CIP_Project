@@ -109,26 +109,21 @@ b = {"Afrika": [delta_gdp_r("Afrika")],
     "Suedamerika": [delta_gdp_r("Suedamerika")]
      }
 b_df = pd.DataFrame(b)
+
 #invert index with column, and sort gdp ascending
 xx = b_df.T
-xx = xx.sort_values(by=0)
-xx = yy.reset_index()
+x1 = xx.sort_values(by=0)
+x2 = x1.reset_index()
+x2.columns = ["Kontinent", "GDP"]
+x2.plot.bar(x='Kontinent', y='GDP', color = "green")
+plt.title('absolute change of GDP')
+
 yy = a_df.T
-yy = yy.sort_values(by=0)
-yy = yy.reset_index()
-yy = yy.columns = ["Kontinent", "GDP"]
-
-df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
-yy.plot()
-
-ax = yy.plot.bar(x='lab', y='val', rot=0)
-
-#plot the absolte and relational difference
-b_df.plot(x='YearCode', y='AggValue', columns=['Kontinent'],  marker='o', color='goldenrod', linewidth=3.0, figsize=(20,10))
-plt.xlabel('time')
-plt.ylabel('USD')
-plt.legend()
-plt.title('Contintental GDP 2000 vs 2019')
+y1 = yy.sort_values(by=0)
+y2 = y1.reset_index()
+y2.columns = ["Kontinent", "GDP"]
+y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
+plt.title('relative change of GDP')
 
 
 ### lessons learned
