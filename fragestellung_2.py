@@ -8,6 +8,8 @@
 #load libraries
 import pandas as pd
 from matplotlib import pyplot as plt
+import xlsxwriter
+
 
 #load data
 df_c = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
@@ -68,6 +70,9 @@ df_res2.info()
 #first data analyis: gdp-time by continent
 df_piv = df_res2.pivot(index='YearCode', columns='Kontinent', values='AggValue')
 df_piv.plot()
+plt.title("gdp_over_time_by_continent")
+#safe plot as png
+plt.savefig('fragestellung_2_gdp_time_by_continent')
 
 #######################
 #keep only row with year 2000 or 2019
@@ -81,7 +86,7 @@ new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
 #reset the index -> indexes become columns
 df_res = new_df.reset_index()
 
-#creation of a function, in order to calculate absolut difference of the GDP's
+#creation of a function, in order to calculate absolute difference of the GDP's
 def delta_gdp(name):
     d = float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2019)]) - \
         float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
@@ -120,15 +125,32 @@ x1 = xx.sort_values(by=0)
 x2 = x1.reset_index()
 x2.columns = ["Kontinent", "GDP"]
 x2.plot.bar(x='Kontinent', y='GDP', color = "green")
+plt.xticks(rotation=20, horizontalalignment="center")
 plt.title('relative change of GDP')
+
+#safe plot as png
+plt.savefig('fragestellung_2_relative_change_of_gdp')
 
 yy = a_df.T
 y1 = yy.sort_values(by=0)
 y2 = y1.reset_index()
 y2.columns = ["Kontinent", "GDP"]
 y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
-plt.title('absolut change of GDP')
+plt.xticks(rotation=20, horizontalalignment="center")
+plt.title('fragestellung_2_absolute_change_of_gdp')
 
+
+#safe plot as png
+plt.savefig('fragestellung_2_absolute_change_of_gdp')
+
+#insert plots into excel - create excel file with one sheet per plot (3x)
+workbook = xlsxwriter.Workbook('fragestellung_2_resultat.xlsx')
+worksheet = workbook.add_worksheet()
+worksheet.insert_image('B2', 'fragestellung_2_gdp_time_by_continent.png')
+worksheet.insert_image('L2', 'fragestellung_2_absolute_change_of_gdp.png')
+worksheet.insert_image('V2', 'fragestellung_2_relative_change_of_gdp.png')
+
+workbook.close()
 
 #### lessons learned
 # - scientific notation (3.45e+08), stored as a text type, can be correctly interpreted in python
