@@ -4,20 +4,19 @@
 #### output: wm_stage.csv.csv
 
 
-#load libraries and set genreals
+#load libraries
 import pandas as pd
 
 
 #load data
 df = pd.read_csv('wm_dirty.csv', header=None, names=['Land', 'Jahr'], encoding='utf-8' )
 
-#first -> general and irregularities inspection
+#first data inspection
 df.head()
 df.count()
 df.info()
-df.isnull()
 
-#convert any ä, ü and ö into ae, ue and oe - for unification purposes with c1
+#convert any ä, ü and ö into ae, ue and oe - for unification purposes with "c1" data
 df = df.replace('ä', 'ae', regex=True)
 df = df.replace('ö', 'oe', regex=True)
 df = df.replace('ü', 'ue', regex=True)
@@ -26,7 +25,7 @@ df = df.replace('Ö', 'Oe', regex=True)
 df = df.replace('Ü', 'Ue', regex=True)
 df
 
-#first cleaning
+#first cleaning - correct clumn of a misread row
 print(df['Land'][14])
 df['Land'][14] = "USA"
 df['Jahr'][14] = "1994"
@@ -36,7 +35,7 @@ df.count()
 df.duplicated()         #no duplicates!
 
 #third - find lower case and change them with upper case
-# lowercased.map() might had been easier
+# -> lowercased.map() might had been faster to code
 count = 0
 for p in df["Land"]:
     if df["Land"][count][0].islower():
@@ -44,12 +43,9 @@ for p in df["Land"]:
         df["Land"][count] = (df["Land"][count][0].upper() + df["Land"][count][1:])
     count += 1
 
-print(df["Land"])
+print(df)
 
-#4th overall inspection
-df
-
-#4th - correct wrong date entry
+#4th - correct wrong date entries
 count = 0
 for p in df["Jahr"]:
     if len(df["Jahr"][count]) > 4:

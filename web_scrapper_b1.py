@@ -11,10 +11,10 @@ from bs4 import BeautifulSoup as bs
 raw_html = requests.get("https://www.fussball-wm-total.de/History/histehre.html")
 soup_html = bs(raw_html.text, "html.parser")
 
-#get nearest, distinctive html section to target input
+#get most distinctive html structure to target input
 extract = soup_html.find("table", width="430", border="1", cellpadding="10")
 
-#loop through html section and eliminate unwanted input values
+#loop through html lines, eliminate unwanted input values and store as csv
 csv_file = open("wm_cip.csv", "w", encoding='utf-8')
 for p in extract.select("tr"):
     y = p.select("td")
@@ -26,3 +26,9 @@ for p in extract.select("tr"):
     except:
         1
 csv_file.close()
+
+#### Lessons learned:
+# - "try-exept" became especially handy to find predefined data structure get rid of the rest. In this case,
+#       it acts as an error and selection handling in one.
+# - Some webpages are badly structured. They use just a few tags and attributes for everything and it is difficult
+#       to recognize patterns for the code scrapping.

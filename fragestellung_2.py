@@ -2,10 +2,10 @@
 ####
 #### input: country_stage.csv, länderkode_stage.csv, rgdpna.csv
 #### output:
-#### method: verbinden von country_stage.csv mit rgdpna.csv via länderkürzel-ländername von länderkode_stage.csv
-#### laypout df: kontinent, ländername, jahr, bip
+#### process: verbinden von country_stage.csv mit rgdpna.csv via länderkürzel-ländername von länderkode_stage.csv
+#### target df laypout: kontinent, ländername, jahr, bip
 
-#load libraries and set genreals
+#load libraries
 import pandas as pd
 from matplotlib import pyplot as plt
 
@@ -14,8 +14,7 @@ df_c = pd.read_csv('country_stage.csv', header=0, encoding='utf-8')
 df_k = pd.read_csv('länderkode_stage.csv', header=0, encoding='utf-8')
 df_r = pd.read_csv('rgdpna.csv', header=0, encoding='utf-8')
 
-
-#first generals inspection
+#first data inspection
 df_c.head()
 df_c.info()
 df_k.head()
@@ -31,7 +30,7 @@ df_joined_1 = pd.merge(df_c, df_k, on='Land', how='inner')
 df_joined_1.head()
 df_joined_1.info()
 
-# -> loss of ~ 60 entries. deeper look at "länderkode_stage.csv"...
+# -> loss of ~ 60 entries after merge. deeper look at "länderkode_stage.csv"...
 # revealed that the naming of the country is not consistent at all,...
 # thus, a manual review is necessary.
 ################################################################################################
@@ -58,10 +57,11 @@ df_joined_2.head()
 df_joined_2.info()
 
 #reindexing the df and group by index, with sum of column value
+# - column with none numerical values get lost during process -> which is actually desired
 df_i2 = df_joined_2.set_index(['Kontinent', 'YearCode'])
 new_df2 = df_i2.groupby(level= ['Kontinent', 'YearCode']).sum()
 
-#reset the index to columns
+#reset the index -> indexes become columns
 df_res2 = new_df2.reset_index()
 df_res2.info()
 
@@ -78,10 +78,10 @@ df_j.info()
 #reindexing the df and group by index, with sum of column values
 df_i = df_j.set_index(['Kontinent', 'YearCode'])
 new_df = df_i.groupby(level= ['Kontinent', 'YearCode']).sum()
-#reset the index to columns
+#reset the index -> indexes become columns
 df_res = new_df.reset_index()
 
-#creation of a function in order to calculate absolut difference of the GDP's
+#creation of a function, in order to calculate absolut difference of the GDP's
 def delta_gdp(name):
     d = float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2019)]) - \
         float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
@@ -93,6 +93,7 @@ def delta_gdp_r(name):
         float(df_res['AggValue'][(df_res.Kontinent == name) & (df_res.YearCode == 2000)])
     return d
 
+#new data variables with values from the functions
 a = {"Afrika": [delta_gdp("Afrika")],
     "Asien": [delta_gdp("Asien")],
     "Australien": [delta_gdp("Australien")],
@@ -130,5 +131,7 @@ plt.title('absolut change of GDP')
 
 
 ### lessons learned
-#scientific notation (3.45e+08), stored as a text type, can be correctly interpreted...
-# by converting it to a float number
+# - scientific notation (3.45e+08), stored as a text type, can be correctly interpreted in python
+#       by converting it into a float number
+# - Group by with sum() can drop columns
+# - set index with clumns and then reset the index can be powerfull for quick data manupulation

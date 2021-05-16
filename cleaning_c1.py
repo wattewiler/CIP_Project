@@ -14,19 +14,19 @@ import pandas as pd
 #thus, load wand set manually the header, skip first row
 df = pd.read_csv('country_dirty.csv', header=None, skiprows=1, names=['Kontinent', 'Land'], encoding='utf-8')
 
-#first -> generals and irregularities inspection
+#first data inspection
 df.head()
 df.describe()
 df.info()
 
-#first measurement - get rid of undesired rows at the end
+#first cleaning - get rid of undesired rows at the end
 print(df.groupby('Kontinent').count())
 df[-15:]
 
 df.drop(df.loc[242:252].index, inplace=True)
 
 
-#correct or delete Null values
+#second - correct Null values
 df[df['Kontinent'].isnull()]    #no null values in kontinent
 df[df['Land'].isnull()]
 
@@ -46,31 +46,27 @@ df[df['Land'].isnull()]
 df.loc[107]["Land"] = "Korea (Nord)"
 df = df.drop([108])
 
-# correct misspelling (Europe -> Europa) !!! create error
+# third - correct misspelling (Europe -> Europa)
 print(df.groupby('Kontinent').count())
 df[df['Kontinent'] == 'Europe']
 df['Kontinent'][4] = 'Europa'
 df['Kontinent'][81] = 'Europa'
 
-#third - find lower case and change them with upper case
+# 4th - find lower case and change them with upper case
 # lowercased.map() might had been easier
 count = 1
 for p in df["Land"]:
     if p[0].islower():
         df["Land"][count] = (p[0].upper() + df["Land"][count][1:])
-        print(p)
-        print(df["Land"][count])
+        print(p)                    # to see what is wrong
+        print(df["Land"][count])    # to see te correction
     count += 1
 
 #save data frame into new csv file
 df.to_csv(r'country_stage.csv', index = False, header=True)
 
 ### lessons learned
-### index, iloc, loc -> wenn nicht spezifiziert, erstellt ein pd dataframe eine liste "Index", beginnen mit 0.
-# Zu beachten ist, dass diese "index"-liste nicht das uns bekannte index ist, sondern eben eine Liste.
-# arbeitet mensch mit dieser liste und verwechselt diese mit dem Index, kann dies verwirrend wirken.
-# Beispiel: im oberen Beispiel führte das Entfernen einer zeile nicht zu einem nachrücken der Index Liste,
-# da diese eben eine Liste ist, und nicht das eigentliche index. D.h, die ""Index""- Werte des Pandas Dataframe,
-# gespeichert als Liste und bennant als "Index", sind fest zugeordnet und rücken nicht nach.
-# Lücken können enstehen und dies kann beim z.B. loopen zu Fehlern führen.
-# erhält die Indexierung des pd df anderen Werte, e.g. Namen, würde solch ein Fehler schneller Bermerkbar werden.
+# - index, iloc, loc -> wenn nicht spezifiziert, erstellt ein pd dataframe eine liste "Index", beginnend mit 0.
+#       Diese PD Data frame indexierung ist nicht das bekannte "index", sondern eben eine Liste.
+#       Wird ein Zeile entfernt, führt das nicht zum nachrücken des DF Index Nummern und es enstehen Lücken in der Numerierung.
+#       Dies kann gegebenfalls z.B. beim loopen zu Fehlern führen.

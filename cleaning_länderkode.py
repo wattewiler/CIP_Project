@@ -11,7 +11,7 @@ import pandas as pd
 #load data
 df = pd.read_csv('länderkode.csv', header=0, sep='\t', encoding='utf-8')
 
-#first -> generals and irregularities inspection
+#first general data inspection
 df.head()
 df.count()
 df.info()

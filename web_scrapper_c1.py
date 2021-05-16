@@ -18,4 +18,9 @@ for p in soup_html.select("tr"):
     a = y[0].text
     b = y[1].text
     csv_file.write(a + "," + b + "\n")
+    print(a + ",")
 csv_file.close()
+
+#### Lessons learned:
+# - Like in the "web_scrapper_b1", this webpage-html uses just a few tags and attributes for everything.
+#       There are no real html patterns and thus the selection is kept on a basic level
