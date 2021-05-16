@@ -1,8 +1,8 @@
 #### frage 2: Welcher Kontinent verzeichnet den grössten BIP-Zuwachs in der Periode von 2000-2019?
 ####
-#### input: country_stage.csv, länderkode_stage.csv, rgdpna.csv
+#### input: c1_country_stage.csv, c2_laendercode_stage.csv, a1_rgdpna_stage.csv
 #### output:
-#### process: verbinden von country_stage.csv mit rgdpna.csv via länderkürzel-ländername von länderkode_stage.csv
+#### process: verbinden von c1_country_stage.csv mit a1_rgdpna_stage.csv via länderkürzel-ländername von c2_laendercode_stage.csv
 #### target df laypout: kontinent, ländername, jahr, bip
 
 #load libraries
@@ -10,9 +10,9 @@ import pandas as pd
 from matplotlib import pyplot as plt
 
 #load data
-df_c = pd.read_csv('country_stage.csv', header=0, encoding='utf-8')
-df_k = pd.read_csv('länderkode_stage.csv', header=0, encoding='utf-8')
-df_r = pd.read_csv('rgdpna.csv', header=0, encoding='utf-8')
+df_c = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
+df_k = pd.read_csv('c2_laendercode_stage.csv', header=0, encoding='utf-8')
+df_r = pd.read_csv('a1_rgdpna_stage.csv', header=0, encoding='utf-8')
 
 #first data inspection
 df_c.head()
@@ -30,20 +30,20 @@ df_joined_1 = pd.merge(df_c, df_k, on='Land', how='inner')
 df_joined_1.head()
 df_joined_1.info()
 
-# -> loss of ~ 60 entries after merge. deeper look at "länderkode_stage.csv"...
+# -> loss of ~ 60 entries after merge. deeper look at "c2_laendercode_stage.csv"...
 # revealed that the naming of the country is not consistent at all,...
 # thus, a manual review is necessary.
 ################################################################################################
-#### input: länderkode_stage.csv
+#### input: c2_laendercode_stage.csv
 #### process: manual correction
-#### output: länderkode_stage_v2.csv
+#### output: c2_laendercode_stage_v2.csv
 
 #find difference - "comparing country_stage" with "länderkode_stage"
 for l in df_k['Land']:
     if not df_c['Land'].str.contains(l).any():
         print(l)
 
-df_k = pd.read_csv('länderkode_stage_v2.csv', header=0, encoding='utf-8')
+df_k = pd.read_csv('c2_laendercode_stage_v2.csv', header=0, encoding='utf-8')
 df_k.info()
 #-> loss of ~ 20 entries. no impactfull country left out
 

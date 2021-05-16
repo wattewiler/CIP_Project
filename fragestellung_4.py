@@ -1,9 +1,9 @@
 #### frage 4: Gibt es eine statistisch feststellbare, signifikante Korrelation zwischen der Durchführung von...
 ####            Sportgrossanlässen und der Veränderung des BIPs der Gastgebernation?
 ####
-#### input: 'länderkode_stage.csv', 'rgdpna.csv'
+#### input: 'c2_laendercode_stage.csv', 'a1_rgdpna_stage.csv'
 #### output: plots
-#### process: step 1: verbinden von 'rgdpna.csv' via länderkürzel-ländername von 'länderkode_stage.csv'
+#### process: step 1: verbinden von 'a1_rgdpna_stage.csv' via länderkürzel-ländername von 'c2_laendercode_stage.csv'
 ####          step 2: auswahl von 4 ländern; 2 mit vielen sportgrossanlasereignissen, 2 mit niedrigem BIP
 ####          Step 3: time series analysis, detrending, ermittlung von outlier und anschliessender
 ####                  abgleich mit dem datum von sportevents im lande
@@ -24,8 +24,8 @@ import numpy as np
 
 
 #load data
-df_r = pd.read_csv('rgdpna.csv', header=0, encoding='utf-8')
-df_k = pd.read_csv('länderkode_stage.csv', header=0, encoding='utf-8')
+df_r = pd.read_csv('a1_rgdpna_stage.csv', header=0, encoding='utf-8')
+df_k = pd.read_csv('c2_laendercode_stage.csv', header=0, encoding='utf-8')
 
 #merge both data frames
 df_j = pd.merge(df_r, df_k, left_on='RegionCode', right_on='ISO-3', how='inner')
