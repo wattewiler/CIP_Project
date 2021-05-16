@@ -130,7 +130,7 @@ y2.plot.bar(x='Kontinent', y='GDP', color = "gold")
 plt.title('absolut change of GDP')
 
 
-### lessons learned
+#### lessons learned
 # - scientific notation (3.45e+08), stored as a text type, can be correctly interpreted in python
 #       by converting it into a float number
 # - Group by with sum() can drop columns
