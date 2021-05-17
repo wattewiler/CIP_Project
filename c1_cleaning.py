@@ -4,29 +4,29 @@
 #### Output: c1_country_stage.csv
 
 
-#load libraries and set genreals
+#   ladet die Libraries
 import pandas as pd
 
 
-#load data - first probelm with unintended presence of 3rd column
+#   der erste versuch, das csv einzulesen schlug fehl. dies, weil der titel spezialzeichen enthält...
 #df = pd.read_csv('c1_country_src_dirty.csv')
 
-#thus, load wand set manually the header, skip first row
+#   ... desswegen wird die titelzeile ausgelassen (skiprows) und der header wird manuel eingegeben
 df = pd.read_csv('c1_country_src_dirty.csv', header=None, skiprows=1, names=['Kontinent', 'Land'], encoding='utf-8')
 
-#first data inspection
+#   erste daten-inspektion
 df.head()
 df.describe()
 df.info()
 
-#first cleaning - get rid of undesired rows at the end
+#   1. cleaning - ungewollte zeilen am ende des csv werden herausgeschnitten
 print(df.groupby('Kontinent').count())
 df[-15:]
 
 df.drop(df.loc[242:252].index, inplace=True)
 
 
-#second - correct Null values
+#   2. - findet null werte und behebt sie
 df[df['Kontinent'].isnull()]    #no null values in kontinent
 df[df['Land'].isnull()]
 
@@ -46,14 +46,14 @@ df[df['Land'].isnull()]
 df.loc[107]["Land"] = "Korea (Nord)"
 df = df.drop([108])
 
-# third - correct misspelling (Europe -> Europa)
+#   3. - korrieigert falschschreibung (Europe -> Europa)
 print(df.groupby('Kontinent').count())
 df[df['Kontinent'] == 'Europe']
 df['Kontinent'][4] = 'Europa'
 df['Kontinent'][81] = 'Europa'
 
-# 4th - find lower case and change them with upper case
-# lowercased.map() might had been easier
+#   2. - findet falsche kleinschreibung und korrigiert sie
+#       -> lowercased.map() wäre dafür villeicht schneller gewesen
 count = 1
 for p in df["Land"]:
     if p[0].islower():
@@ -62,7 +62,7 @@ for p in df["Land"]:
         print(df["Land"][count])    # to see te correction
     count += 1
 
-#save data frame into new csv file
+#   speichert das dataframe in ein csv, ohne index und mit header
 df.to_csv(r'c1_country_stage.csv', index = False, header=True)
 
 ### lessons learned

@@ -4,19 +4,19 @@
 #### output: b1_wm_stage.csv.csv
 
 
-#load libraries
+#   ladet die Libraries
 import pandas as pd
 
 
-#load data
+#   ladet das csv und fügt einen titel hinzu
 df = pd.read_csv('b1_wm_src_dirty.csv', header=None, names=['Land', 'Jahr'], encoding='utf-8')
 
-#first data inspection
+#   erste daten-inspektion
 df.head()
 df.count()
 df.info()
 
-#convert any ä, ü and ö into ae, ue and oe - for unification purposes with "c1" data
+#   wandelt alle ä, ü, ö in ae, ue, oe - damit die namen file übergreifend konsistent sind
 df = df.replace('ä', 'ae', regex=True)
 df = df.replace('ö', 'oe', regex=True)
 df = df.replace('ü', 'ue', regex=True)
@@ -25,17 +25,14 @@ df = df.replace('Ö', 'Oe', regex=True)
 df = df.replace('Ü', 'Ue', regex=True)
 df
 
-#first cleaning - correct clumn of a misread row
+#   1. cleaning - falschgelesen zeile wegen eines semicolon
 print(df['Land'][14])
 df['Land'][14] = "USA"
 df['Jahr'][14] = "1994"
 df.count()
 
-#second - search for duplicates
-df.duplicated()         #no duplicates!
-
-#third - find lower case and change them with upper case
-# -> lowercased.map() might had been faster to code
+#   2. - findet falsche kleinschreibung und korrigiert sie
+#       -> lowercased.map() wäre dafür villeicht schneller gewesen
 count = 0
 for p in df["Land"]:
     if df["Land"][count][0].islower():
@@ -45,7 +42,7 @@ for p in df["Land"]:
 
 print(df)
 
-#4th - correct wrong date entries
+#   3. - korrigiert falsche datumformaten
 count = 0
 for p in df["Jahr"]:
     if len(df["Jahr"][count]) > 4:
@@ -55,8 +52,8 @@ for p in df["Jahr"]:
 
 print(df["Jahr"])
 
-#last check
+#   letzter check
 df.info()
 
-#save data frame into new csv file
+#   speichert die daten in ein csv file, ohne index und mit header
 df.to_csv(r'b1_wm_stage.csv', index = False, header=True)

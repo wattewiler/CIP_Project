@@ -4,19 +4,19 @@
 #### output: c2_laendercode_stage.csv
 
 
-#load libraries and set genreals
+#   ladet die Libraries
 import pandas as pd
 
 
-#load data
+#   ladet das csv mit titel, erstellt die tabellen mittels \t
 df = pd.read_csv('c2_laendercode_src.csv', header=0, sep='\t', encoding='utf-8')
 
-#first general data inspection
+#   erste daten-inspektion
 df.head()
 df.count()
 df.info()
 
-#convert any ä, ü and ö into ae, ue and oe - for unification purposes with c1
+#   wandelt alle ä, ü, ö in ae, ue, oe - damit die namen file übergreifend konsistent sind
 df = df.replace('ä', 'ae', regex=True)
 df = df.replace('ö', 'oe', regex=True)
 df = df.replace('ü', 'ue', regex=True)
@@ -25,9 +25,9 @@ df = df.replace('Ö', 'Oe', regex=True)
 df = df.replace('Ü', 'Ue', regex=True)
 df
 
-#drop superfluous column
+#   entfernt unnötige spalten
 df = df.drop(columns="ISO-2")
 df = df.drop(columns="numerisch")
 
-#save data frame into new csv file
+#   speichert das dataframe in ein csv, ohne index und mit header
 df.to_csv(r'c2_laendercode_stage.csv', index = False, header=True)
