@@ -1,42 +1,48 @@
 #### frage 4: Gibt es eine statistisch feststellbare, signifikante Korrelation zwischen der Durchführung von...
 ####            Sportgrossanlässen und der Veränderung des BIPs der Gastgebernation?
 ####
-#### input: 'c2_laendercode_stage.csv', 'a1_rgdpna_stage.csv'
+#### input: 'c2_laendercode_stage_2.csv', 'a1_rgdpna_stage.csv'
 #### output: plots
 #### process: step 1: verbinden von 'a1_rgdpna_stage.csv' via länderkürzel-ländername von 'c2_laendercode_stage.csv'
-####          step 2: auswahl von 4 ländern; 2 mit vielen sportgrossanlasereignissen, 2 mit niedrigem BIP
+####          step 2: auswahl aus fragestelung 1: die top vier event länder
 ####          Step 3: time series analysis, detrending, ermittlung von outlier und anschliessender
 ####                  abgleich mit dem datum von sportevents im lande
 
-#load libraries
-import warnings
-warnings.filterwarnings('ignore')
-from distutils.version import StrictVersion
+
+#   ladet die libraries
 import pandas as pd
-assert StrictVersion(pd.__version__) >= StrictVersion('0.19.0')
 import seaborn as sns
-assert StrictVersion(sns.__version__) >= StrictVersion('0.7.0')
-#load libraries for time series analysis
+#   ladet libraries für die time series analysis
 from matplotlib import pyplot as plt
 from scipy import signal
 import numpy as np
 
 
-#load data
+#   ladet die bereinigten csv
 df_r = pd.read_csv('a1_rgdpna_stage.csv', header=0, encoding='utf-8')
-df_k = pd.read_csv('c2_laendercode_stage.csv', header=0, encoding='utf-8')
+df_k = pd.read_csv('c2_laendercode_stage_2.csv', header=0, encoding='utf-8')
 
-#merge both data frames
+#   verbindet beide datensets - über die iso-3 kennzeichnung wird das bip dem ganzen ländername zugewiesen
 df_j = pd.merge(df_r, df_k, left_on='RegionCode', right_on='ISO-3', how='inner')
+df_j.head()
+
+#   beseitigt überflüssige spalten
 df_j = df_j.drop(columns="ISO-3")
 df_j = df_j.drop(columns="RegionCode")
 df_j = df_j.drop(columns="VariableCode")
 
 df_j.head()
 
-#selection of country, from question 1: find top two countries:
-df_c1 = df_j[df_j['Land'] == 'Frankreich']
-df_c1.head()
+#   auswahl der länder für die anaylse -> findings aus fragestellung_1:
+#   1. usa 2. frankreich 3. italien 4. deutschland
+df_usa = df_j[df_j['Land'] == 'USA']
+df_fr = df_j[df_j['Land'] == 'Frankreich']
+df_ita = df_j[df_j['Land'] == 'Italien']
+df_de = df_j[df_j['Land'] == 'Deutschland']
+df_usa.head()
+df_fr.head()
+df_ita.head()
+df_de.head()
 
 #plot time series
 df_c1.plot(x='YearCode', y='AggValue', marker='o', color='goldenrod', linewidth=3.0, figsize=(16,10))
