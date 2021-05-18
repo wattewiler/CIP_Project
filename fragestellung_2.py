@@ -145,7 +145,7 @@ plt.title('fragestellung_2_absolute_change_of_gdp (2000-2019)')
 plt.savefig('fragestellung_2_absolute_change_of_gdp (2000-2019)')
 
 #   fügt die boxplot png in ein excel sheet ein
-workbook = xlsxwriter.Workbook('fragestellung_2_resultat.xlsx')
+workbook = xlsxwriter.Workbook('Result_Question_02.xlsx')
 worksheet = workbook.add_worksheet()
 worksheet.insert_image('B2', 'fragestellung_2_gdp_time_by_continent.png')
 worksheet.insert_image('L2', 'fragestellung_2_absolute_change_of_gdp.png')
