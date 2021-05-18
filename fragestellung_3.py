@@ -9,7 +9,7 @@ df_lc = pd.read_csv('c2_laendercode_stage.csv', header=0, encoding='utf-8')
 df_ln = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
 
 # Der Outputname des Excels definiert
-xlsx_output_name = 'fragestellung_3_resultat.xlsx'
+xlsx_output_name = 'Result_Question_03.xlsx'
 
 # Erste Inspektion der Daten
 df_wm.info()
