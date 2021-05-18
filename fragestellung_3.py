@@ -10,7 +10,6 @@ df_ln = pd.read_csv('c1_country_stage.csv', header=0, encoding='utf-8')
 
 # Der Outputname des Excels definiert
 xlsx_output_name = 'fragestellung_3_resultat.xlsx'
-csv_test_output_name = 'fragestellung_3_test_export.csv'
 
 # Erste Inspektion der Daten
 df_wm.info()
@@ -40,7 +39,7 @@ df_wo_new = df_wo_new[['Jahr', 'Land', 'Anlass']]
 df_events = pd.concat([df_wo_new, df_so_new, df_wm_new])
 df_events = pd.merge(df_events, df_ln, on='Land', how='inner')
 
-# Neue Kolonne 'Dekade' wird erstellt, dafür die bestehenden Jahrzahlen kopiert
+# Neue Kolonne 'Dekade' wird erstellt, dafür die bestehenden Jahrzahlen kopiert und angepasst
 df_events['Dekade'] = df_events['Jahr'].astype('str').str[:3] + '0'
 df_events['Dekade'] = df_events['Dekade'].astype('int64')
 
