@@ -10,10 +10,8 @@
 
 #   ladet die libraries
 import pandas as pd
-import seaborn as sns
 from matplotlib import pyplot as plt
 from scipy import signal
-import numpy as np
 import xlsxwriter
 
 
@@ -45,25 +43,25 @@ df_de.head()
 
 #   erstellt ein plot von den bip über die zeit pro land
 #   anschliessend wird der plot als png abgespeichert, für später zum excel file
-df_usa.plot(x='YearCode', y='AggValue', marker='o', color='goldenrod', linewidth=2.0, figsize=(16,10))
+df_usa.plot(x='YearCode', y='AggValue', marker='', color='goldenrod', linewidth=1.0, figsize=(8,5))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of US GDP')
 plt.savefig('fragestellung_4_usa_bip_time_series')
 
-df_fr.plot(x='YearCode', y='AggValue', marker='o', color='steelblue', linewidth=2.0, figsize=(16,10))
+df_fr.plot(x='YearCode', y='AggValue', marker='', color='steelblue', linewidth=1.0, figsize=(8,5))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of french GDP')
 plt.savefig('fragestellung_4_frankreich_bip_time_series')
 
-df_it.plot(x='YearCode', y='AggValue', marker='o', color='yellowgreen', linewidth=2.0, figsize=(16,10))
+df_it.plot(x='YearCode', y='AggValue', marker='', color='yellowgreen', linewidth=1.0, figsize=(8,5))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of italian GDP')
 plt.savefig('fragestellung_4_italien_bip_time_series')
 
-df_de.plot(x='YearCode', y='AggValue', marker='o', color='dimgray', linewidth=2.0, figsize=(16,10))
+df_de.plot(x='YearCode', y='AggValue', marker='', color='dimgray', linewidth=1.0, figsize=(8,5))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of german GDP')
@@ -76,24 +74,30 @@ it_detrended = signal.detrend(df_it['AggValue'])
 de_detrended = signal.detrend(df_de['AggValue'])
 
 #plot detrended ts
+plt.figure(1)
 plt.plot(df_usa['YearCode'], usa_detrended, label="GDP_detrended", color='navajowhite', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
 plt.title('Detrended Time Series of US GDP - with marked sports events')
 plt.savefig('fragestellung_4_usa_time_series_analyse')
+plt.show()
 
+plt.figure(2)
 plt.plot(df_fr['YearCode'], fr_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
 plt.title('Detrended Time Series of french GDP - with marked sports events')
 plt.savefig('fragestellung_4_fr_time_series_analyse')
+plt.show()
 
+plt.figure(3)
 plt.plot(df_it['YearCode'], it_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
 plt.title('Detrended Time Series of italian GDP - with marked sports events')
 plt.savefig('fragestellung_4_it_time_series_analyse')
 
+plt.figure(4)
 plt.plot(df_de['YearCode'], de_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
@@ -102,21 +106,22 @@ plt.savefig('fragestellung_4_de_time_series_analyse')
 
 #   fügt die plots png in ein excel sheet ein
 workbook = xlsxwriter.Workbook('Result_Question_04.xlsx')
+
 worksheet = workbook.add_worksheet("usa")
 worksheet.insert_image('B2', 'fragestellung_4_usa_bip_time_series.png')
-worksheet.insert_image('L2', 'fragestellung_4_usa_time_series_analyse.png')
+worksheet.insert_image('O2', 'fragestellung_4_usa_time_series_analyse.png')
 
 worksheet = workbook.add_worksheet("fr")
 worksheet.insert_image('B2', 'fragestellung_4_frankreich_bip_time_series.png')
-worksheet.insert_image('L2', 'fragestellung_4_fr_time_series_analyse.png')
+worksheet.insert_image('O2', 'fragestellung_4_fr_time_series_analyse.png')
 
 worksheet = workbook.add_worksheet("it")
 worksheet.insert_image('B2', 'fragestellung_4_italien_bip_time_series.png')
-worksheet.insert_image('L2', 'fragestellung_4_it_time_series_analyse.png')
+worksheet.insert_image('O2', 'fragestellung_4_it_time_series_analyse.png')
 
 worksheet = workbook.add_worksheet("de")
 worksheet.insert_image('B2', 'fragestellung_4_deutschland_bip_time_series.png')
-worksheet.insert_image('L2', 'fragestellung_4_de_time_series_analyse.png')
+worksheet.insert_image('O2', 'fragestellung_4_de_time_series_analyse.png')
 
 workbook.close()
 
