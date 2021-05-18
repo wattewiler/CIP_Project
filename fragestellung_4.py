@@ -86,7 +86,7 @@ plt.figure(2)
 plt.plot(df_fr['YearCode'], fr_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
-plt.title('Detrended Time Series of french GDP - with marked sports events')
+plt.title('Detrended Time Series of French GDP - with marked sports events')
 plt.savefig('fragestellung_4_fr_time_series_analyse')
 plt.show()
 
@@ -94,14 +94,14 @@ plt.figure(3)
 plt.plot(df_it['YearCode'], it_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
-plt.title('Detrended Time Series of italian GDP - with marked sports events')
+plt.title('Detrended Time Series of Italian GDP - with marked sports events')
 plt.savefig('fragestellung_4_it_time_series_analyse')
 
 plt.figure(4)
 plt.plot(df_de['YearCode'], de_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
 x = [1990]
 plt.axvline(x, linewidth=0.5)
-plt.title('Detrended Time Series of german GDP - with marked sports events')
+plt.title('Detrended Time Series of German GDP - with marked sports events')
 plt.savefig('fragestellung_4_de_time_series_analyse')
 
 #   fügt die plots png in ein excel sheet ein
