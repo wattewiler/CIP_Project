@@ -7,7 +7,6 @@
 ####          step 2: auswahl von 4 ländern; 2 mit vielen sportgrossanlasereignissen, 2 mit niedrigem BIP
 ####          Step 3: time series analysis, detrending, ermittlung von outlier und anschliessender
 ####                  abgleich mit dem datum von sportevents im lande
-#### target df layout: ländername, jahr, bip
 
 #load libraries
 import warnings
