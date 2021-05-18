@@ -40,7 +40,7 @@ for row in winter_olympics_table_data:
         continue
     rows.append(beautified_value)
 
-# Die Kolonnen werden ausgegeben
+# Die Kolonnen werden zur Inspektion ausgegeben
 print(rows)
 
 # Schlussendlich wird unter dem eingangs definitierten Namen eine CSV-Datei exportiert

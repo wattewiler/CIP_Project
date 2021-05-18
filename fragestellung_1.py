@@ -11,10 +11,10 @@ df_lc = pd.read_csv('c2_laendercode_stage.csv', header=0, encoding='utf-8')
 xlsx_output_name = 'fragestellung_1_resultat.xlsx'
 
 # Erste Inspektion der Daten
-# df_wm.info()
-# df_wo.info()
-# df_so.info()
-# df_lc.info()
+df_wm.info()
+df_wo.info()
+df_so.info()
+df_lc.info()
 
 # Aufbereitung Laenderkürzel-Dataset
 df_lc_new = df_lc.rename(columns={'ISO-3' : 'Land_code'})
@@ -22,11 +22,6 @@ df_lc_new = df_lc.rename(columns={'ISO-3' : 'Land_code'})
 # Aufbereitung des Datasets Fussballweltmeisterschaften
 df_wm_new = df_wm[['Jahr', 'Land']]
 df_wm_new['Anlass'] = 'Fussballweltmeisterschaft'
-
-
-# Hier noch Eintrag mit Japan und Südkorea verdoppeln!
-
-
 
 # Aufbereitung des Datasets Olympische Sommerspiele
 df_so_new = pd.merge(df_so, df_lc_new, on='Land_code', how='inner')
@@ -42,7 +37,7 @@ df_wo_new = df_wo_new[['Jahr', 'Land', 'Anlass']]
 df_concatenated = pd.concat([df_wo_new, df_so_new, df_wm_new])
 df_concatenated = df_concatenated.sort_values(by=['Jahr'],ignore_index=True)
 
-# Bevor das XSLX generiert wird, werden Filter angewendet und die Werte gezählt & danach sortiert
+# Bevor das XSLX generiert wird, werden Filter angewendet und die Werte gezählt & nach der Anzahl sortiert
 df_final = df_concatenated.loc[(df_concatenated['Jahr'] > 1950) & (df_concatenated['Jahr'] < 2019)]
 df_final = df_concatenated['Land'].value_counts(sort=True)
 
