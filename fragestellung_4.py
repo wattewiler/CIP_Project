@@ -11,10 +11,10 @@
 #   ladet die libraries
 import pandas as pd
 import seaborn as sns
-#   ladet libraries für die time series analysis
 from matplotlib import pyplot as plt
 from scipy import signal
 import numpy as np
+import xlsxwriter
 
 
 #   ladet die bereinigten csv
@@ -51,19 +51,19 @@ plt.ylabel('USD')
 plt.title('Time Series of US GDP')
 plt.savefig('fragestellung_4_usa_bip_time_series')
 
-df_fr.plot(x='YearCode', y='AggValue', marker='o', color='dodgerblue', linewidth=2.0, figsize=(16,10))
+df_fr.plot(x='YearCode', y='AggValue', marker='o', color='steelblue', linewidth=2.0, figsize=(16,10))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of french GDP')
 plt.savefig('fragestellung_4_frankreich_bip_time_series')
 
-df_it.plot(x='YearCode', y='AggValue', marker='o', color='lawngreen', linewidth=2.0, figsize=(16,10))
+df_it.plot(x='YearCode', y='AggValue', marker='o', color='yellowgreen', linewidth=2.0, figsize=(16,10))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of italian GDP')
 plt.savefig('fragestellung_4_italien_bip_time_series')
 
-df_de.plot(x='YearCode', y='AggValue', marker='o', color='black', linewidth=2.0, figsize=(16,10))
+df_de.plot(x='YearCode', y='AggValue', marker='o', color='dimgray', linewidth=2.0, figsize=(16,10))
 plt.xlabel('year')
 plt.ylabel('USD')
 plt.title('Time Series of german GDP')
@@ -75,21 +75,52 @@ fr_detrended = signal.detrend(df_fr['AggValue'])
 it_detrended = signal.detrend(df_it['AggValue'])
 de_detrended = signal.detrend(df_de['AggValue'])
 
-
 #plot detrended ts
-plt.plot(df_usa['YearCode'], ts_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
+plt.plot(df_usa['YearCode'], ts_detrended, label="GDP_detrended", color='navajowhite', linewidth=3.0, linestyle='dotted')
 x = []
 y = []
 plt.plot(x, y, "or")
 plt.title('Detrended Time Series of US GDP')
-plt.savefig('fragestellung_4_usa_bip_time_series_entrendet')
+plt.savefig('fragestellung_4_usa_time_series_analyse')
+
+plt.plot(df_fr['YearCode'], ts_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
+x = []
+y = []
+plt.plot(x, y, "or")
+plt.title('Detrended Time Series of french GDP')
+plt.savefig('fragestellung_4_fr_time_series_analyse')
+
+plt.plot(df_it['YearCode'], ts_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
+x = []
+y = []
+plt.plot(x, y, "or")
+plt.title('Detrended Time Series of italian GDP')
+plt.savefig('fragestellung_4_it_time_series_analyse')
+
+plt.plot(df_de['YearCode'], ts_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
+x = []
+y = []
+plt.plot(x, y, "or")
+plt.title('Detrended Time Series of german GDP')
+plt.savefig('fragestellung_4_de_time_series_analyse')
 
 #   fügt die plots png in ein excel sheet ein
-workbook = xlsxwriter.Workbook('Result_Question_02.xlsx')
-worksheet = workbook.add_worksheet()
-worksheet.insert_image('B2', 'fragestellung_2_gdp_time_by_continent.png')
-worksheet.insert_image('L2', 'fragestellung_2_absolute_change_of_gdp.png')
-worksheet.insert_image('V2', 'fragestellung_2_relative_change_of_gdp.png')
+workbook = xlsxwriter.Workbook('Result_Question_04.xlsx')
+worksheet = workbook.add_worksheet("usa")
+worksheet.insert_image('B2', 'fragestellung_4_usa_bip_time_series.png')
+worksheet.insert_image('L2', 'fragestellung_4_usa_time_series_analyse.png')
+
+worksheet = workbook.add_worksheet("fr")
+worksheet.insert_image('B2', 'fragestellung_4_frankreich_bip_time_series.png')
+worksheet.insert_image('L2', 'fragestellung_4_fr_time_series_analyse.png')
+
+worksheet = workbook.add_worksheet("it")
+worksheet.insert_image('B2', 'fragestellung_4_italien_bip_time_series.png')
+worksheet.insert_image('L2', 'fragestellung_4_it_time_series_analyse.png')
+
+worksheet = workbook.add_worksheet("de")
+worksheet.insert_image('B2', 'fragestellung_4_deutschland_bip_time_series.png')
+worksheet.insert_image('L2', 'fragestellung_4_de_time_series_analyse.png')
 
 workbook.close()
 
