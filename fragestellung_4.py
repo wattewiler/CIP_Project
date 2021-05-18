@@ -76,32 +76,28 @@ it_detrended = signal.detrend(df_it['AggValue'])
 de_detrended = signal.detrend(df_de['AggValue'])
 
 #plot detrended ts
-plt.plot(df_usa['YearCode'], ts_detrended, label="GDP_detrended", color='navajowhite', linewidth=3.0, linestyle='dotted')
-x = []
-y = []
-plt.plot(x, y, "or")
-plt.title('Detrended Time Series of US GDP')
+plt.plot(df_usa['YearCode'], usa_detrended, label="GDP_detrended", color='navajowhite', linewidth=3.0, linestyle='dotted')
+x = [1990]
+plt.axvline(x, linewidth=0.5)
+plt.title('Detrended Time Series of US GDP - with marked sports events')
 plt.savefig('fragestellung_4_usa_time_series_analyse')
 
-plt.plot(df_fr['YearCode'], ts_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
-x = []
-y = []
-plt.plot(x, y, "or")
-plt.title('Detrended Time Series of french GDP')
+plt.plot(df_fr['YearCode'], fr_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
+x = [1990]
+plt.axvline(x, linewidth=0.5)
+plt.title('Detrended Time Series of french GDP - with marked sports events')
 plt.savefig('fragestellung_4_fr_time_series_analyse')
 
-plt.plot(df_it['YearCode'], ts_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
-x = []
-y = []
-plt.plot(x, y, "or")
-plt.title('Detrended Time Series of italian GDP')
+plt.plot(df_it['YearCode'], it_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
+x = [1990]
+plt.axvline(x, linewidth=0.5)
+plt.title('Detrended Time Series of italian GDP - with marked sports events')
 plt.savefig('fragestellung_4_it_time_series_analyse')
 
-plt.plot(df_de['YearCode'], ts_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
-x = []
-y = []
-plt.plot(x, y, "or")
-plt.title('Detrended Time Series of german GDP')
+plt.plot(df_de['YearCode'], de_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
+x = [1990]
+plt.axvline(x, linewidth=0.5)
+plt.title('Detrended Time Series of german GDP - with marked sports events')
 plt.savefig('fragestellung_4_de_time_series_analyse')
 
 #   fügt die plots png in ein excel sheet ein
