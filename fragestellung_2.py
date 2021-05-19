@@ -1,7 +1,7 @@
 #### frage 2: Welcher Kontinent verzeichnet den grössten BIP-Zuwachs in der Periode von 2000-2019?
 ####
 #### input: c1_country_stage.csv, c2_laendercode_stage.csv, a1_rgdpna_stage.csv
-#### output: fragestellung_2_resultat.xlsx
+#### output: Result_Question_02.xlsx
 #### process: verbinden von c1_country_stage.csv mit a1_rgdpna_stage.csv via länderkürzel-ländername von c2_laendercode_stage.csv
 
 #   ladet die Libraries
