@@ -1,3 +1,9 @@
+################################# FRAGESTELLUNG 3 #################################
+# In welcher Dekade wurden auf welchem Kontinent die meisten Sportgrossanlässe (Sommer- und Winterolympiade,
+# Fussballweltmeisterschaft) durchgeführt?
+
+
+
 # Benötigte Libraries laden
 import pandas as pd
 
