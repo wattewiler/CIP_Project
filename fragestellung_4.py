@@ -90,8 +90,8 @@ de_detrended = signal.detrend(df_de['AggValue'])
 #plot detrended ts
 
 #   usa
-plt.figure(1)
-plt.plot(df_usa['YearCode'], usa_detrended, label="GDP_detrended", color='navajowhite', linewidth=3.0, linestyle='dotted')
+plt.figure(1, figsize=(8, 5))
+plt.plot(df_usa['YearCode'], usa_detrended, label="GDP_detrended", color='navajowhite', linewidth=0.5)
 x = df_date_usa.tolist()
 for a in x: plt.axvline(a, linewidth=0.5)
 plt.title('Detrended Time Series of US GDP - with marked sports events')
@@ -99,8 +99,8 @@ plt.savefig('fragestellung_4_usa_time_series_analyse')
 plt.show()
 
 #   fr
-plt.figure(2)
-plt.plot(df_fr['YearCode'], fr_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=3.0, linestyle='dotted')
+plt.figure(2, figsize=(8, 5))
+plt.plot(df_fr['YearCode'], fr_detrended, label="GDP_detrended", color='lightsteelblue', linewidth=0.5)
 x = df_date_fr.tolist()
 for a in x: plt.axvline(a, linewidth=0.5)
 plt.title('Detrended Time Series of French GDP - with marked sports events')
@@ -108,16 +108,16 @@ plt.savefig('fragestellung_4_fr_time_series_analyse')
 plt.show()
 
 #   it
-plt.figure(3)
-plt.plot(df_it['YearCode'], it_detrended, label="GDP_detrended", color='darkseagreen', linewidth=3.0, linestyle='dotted')
+plt.figure(3, figsize=(8, 5))
+plt.plot(df_it['YearCode'], it_detrended, label="GDP_detrended", color='darkseagreen', linewidth=0.5)
 x = df_date_it.tolist()
 for a in x: plt.axvline(a, linewidth=0.5)
 plt.title('Detrended Time Series of Italian GDP - with marked sports events')
 plt.savefig('fragestellung_4_it_time_series_analyse')
 
 #   de
-plt.figure(4)
-plt.plot(df_de['YearCode'], de_detrended, label="GDP_detrended", color='slategray', linewidth=3.0, linestyle='dotted')
+plt.figure(4, figsize=(8, 5))
+plt.plot(df_de['YearCode'], de_detrended, label="GDP_detrended", color='slategray', linewidth=0.5)
 x = df_date_de.tolist()
 for a in x: plt.axvline(a, linewidth=0.5)
 plt.title('Detrended Time Series of German GDP - with marked sports events')
