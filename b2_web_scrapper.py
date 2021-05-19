@@ -13,7 +13,7 @@ html_content = requests.get(url).text
 # ...und mittels LXML geparsed
 soup = BeautifulSoup(html_content, "lxml")
 
-# Ein erstes Print des gescrapten HTML-Inhalts gibt uns eine Übersicht
+# Ein erstes Print des gescrapten HTML-Inhalts gibt uns eine Übersicht der geladenen Daten
 print(soup.prettify())
 
 # Als -olympics_table wird der Inhalt des Tags <table> mit der Klasse "dataList" geladen
@@ -30,21 +30,31 @@ for i in winter_olympics_table.find_all('th'):
 # Wir lassen uns die geladenen Überschriften ausgeben
 print(headers)
 
-# In _olympics_table_data werden nun alle Tags <td> gesucht. Diese beinhalten pro Datensatz einen Wert (Jahr, Ort etc.)
+# In _olympics_table_data werden nun alle Tags <td> gesucht und in rows[] gespeichert.
+# Diese Tags beinhalten pro Datensatz einen Wert (Jahr, Ort etc.)
 rows = []
 for row in winter_olympics_table_data:
     value = row.find_all('td')
     beautified_value = [ele.text.strip() for ele in value]
-# Data Arrays entfernen, die leer sind
+# Data Arrays werden entfernt, falls sie leer sind
     if len(beautified_value) == 0:
         continue
     rows.append(beautified_value)
 
-# Die Kolonnen werden zur Inspektion ausgegeben
+# Die Kolonnen werden zur Kontrolle ausgegeben
 print(rows)
 
-# Schlussendlich wird unter dem eingangs definitierten Namen eine CSV-Datei exportiert
+# Schlussendlich wird unter dem eingangs definitierten Namen eine CSV-Datei exportiert und kann im nächsten Schritt
+# (Cleaning) weiterverarbeitet werden
 with open(csv_output_name, 'w', newline="") as output:
     writer = csv.writer(output)
     writer.writerow(headers)
     writer.writerows(rows)
+
+#### LESSONS LEARNED ####
+# BeautifulSoup ist ein mächtiges Werkzeug und erlaubt es mit wenig aufwand, elegant Webseiten zu scrapen.
+# Wichtig ist es, dass man sich zuerst eine gute Übersicht über die Webseite verschafft - schliesslich muss man
+# wissen, mit was man da arbeitet. Dafür ist ein gewisses HTML- und CSS-Verständnis notwendig, welches ich auch gleich
+# etwas vertiefen konnte. (Tatsächlich hat mir ein Missverständnis des Table-Tags einige Stunden Mehraufwand beschert...
+# Ein Fehler, der mir bestimmt nicht mehr passieren wird!) Schlussendlich gibt es verschiedene Herangehensweisen,
+# die zum selben Ziel führen. Es ist Webseite-abhängig, welche Methode sich wofür am besten eignet.

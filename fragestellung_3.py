@@ -18,19 +18,19 @@ df_so.info()
 df_lc.info()
 df_ln.info()
 
-# Aufbereitung Laenderkürzel-Dataset
+# Aufbereitung Länderkürzel-Dataset
 df_lc_new = df_lc.rename(columns={'ISO-3': 'Land_code'})
 
-# Aufbereitung des Datasets Fussballweltmeisterschaften
+# Aufbereitung des Datasets Fussballweltmeisterschaften (Neuanordnung der Spalten und Ergänzung um Typ Anlass)
 df_wm_new = df_wm[['Jahr', 'Land']]
 df_wm_new['Anlass'] = 'Fussballweltmeisterschaft'
 
-# Aufbereitung des Datasets Olympische Sommerspiele
+# Aufbereitung des Datasets Olympische Sommerspiele (Join mit Ländercode und Neuanordnung der Spalten)
 df_so_new = pd.merge(df_so, df_lc_new, on='Land_code', how='inner')
 df_so_new.pop('Land_code')
 df_so_new = df_so_new[['Jahr', 'Land', 'Anlass']]
 
-# Aufbereitung des Datasets Olympische Winterspiele
+# Aufbereitung des Datasets Olympische Winterspiele (Join mit Ländercode und Neuanordnung der Spalten)
 df_wo_new = pd.merge(df_wo, df_lc_new, on='Land_code', how='inner')
 df_wo_new.pop('Land_code')
 df_wo_new = df_wo_new[['Jahr', 'Land', 'Anlass']]
@@ -60,3 +60,11 @@ df_final = df_final.sort_values(by=['Anzahl Anlässe'], ignore_index=True, ascen
 
 # Schlussendlich wird die Auswertung in ein Excelfile geschrieben
 df_final.to_excel(xlsx_output_name, index=False)
+
+#### LESSONS LEARNED ####
+# Es ist sehr wichtig, dass gleich zu Beginn des Scraping definiert ist, wie die exportierten und aufbereiteten Daten
+# aussehen sollen. So hätte ich mir einige Arbeitsschritte ersparen können, wenn der Teamkollege und ich bereits
+# von Anfang an das gleiche Schema verfolgt hätten. So benötigte es meinerseits einige Aufbereitungsschritte mehr,
+# die eigentlich bereits im Cleaning-Step erfolgt hätte können.
+# GitHub mit der zentralisierten Repository und der Version Control hat uns sehr geholfen, jederzeit "Herr" unserer
+# Daten und des Codes zu sein.
