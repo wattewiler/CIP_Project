@@ -5,14 +5,14 @@ import pandas as pd
 df = pd.read_csv('b3_solympics_src.csv', encoding='utf-8')
 csv_output_name = 'b3_solympics_stage.csv'
 
-# Überblick der eingelesenen Daten
+# Hier verschaffen wir uns einen Überblick der eingelesenen Daten
 df.info()
 
 # Eingehender Check der Daten (bei einem kleinen Dataframe kein Problem)
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print(df)
 
-# Alle Zeilen, die komplett leer sind (NaN, also keine Values haben), werden gedroppt
+# Alle Zeilen, die komplett leer sind (NaN, also keine Values haben), werden jetzt gedroppt
 df = df.dropna(how='all')
 
 # Alle Kolonnen, die nicht gebraucht werden, werden gedroppt
@@ -36,16 +36,11 @@ df['Jahr_stage'] = df['Olympiade'].str[:4]
 df['Jahr_stage'] = df['Jahr_stage'].str.replace(' ', '')
 df['Jahr_stage'] = df['Jahr_stage'].astype('int64')
 
-
-
-
 # Umbenennen der Kolonne, in welcher die Spiele stattgefunden haben
 df.rename(columns={'in': 'Land'}, inplace=True)
 
 # Länderkürzel in neue Kolonne 'Land_code' extrahieren
 df['Land_code'] = df['Land'].str.replace(r'[^(]*\(|\)[^)]*', '')
-
-
 
 # Länderkürzel in neuer Kolonne 'Land_code_stage' durch ISO3-Norm-Values ersetzen
 df['Land_code_stage'] = df['Land_code'].replace(['GR', 'F', 'GB', 'Berlin', 'B', 'NL', 'Deutsches Reich',
@@ -58,12 +53,9 @@ df['Land_code_stage'] = df['Land_code'].replace(['GR', 'F', 'GB', 'Berlin', 'B',
 # Der Vollständigkeit halber eine weitere Spalte zur Deklaration des Anlasses
 df['Anlass_stage'] = 'Olympische Sommerspiele'
 
-# Abschliessend nochmals ein kurzer Check, ob das Dataframe sauber aufbereitet ist. Dafür werden alle Kolonnen ausgegeben
+# Abschliessend nochmals ein kurzer Check, ob das Dataframe sauber aufbereitet ist. Dafür alle Kolonnen ausgegeben
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print(df)
-
-df.info()
-
 
 # Alle Kolonnen, die nach dem Cleaning nicht mehr gebraucht werden, werden vor Output gedroppt
 to_drop = ['Olympiade',
@@ -80,9 +72,9 @@ df['Anlass'] = df['Anlass_stage']
 # Schlussendlich werden die Daten in ein neues CSV-File geschrieben, der Index dabei entfernt, der Header belassen
 df[['Jahr', 'Land_code', 'Anlass']].to_csv(csv_output_name, index = False, header=True)
 
-
-
-####### LESSONS LEARNED #######
-# ASDFASDFASDF
-
-df.info()
+#### LESSONS LEARNED ####
+# Bei der Aufbereitung von gescrapten Daten ist es eminent wichtig, dass die Originalinformationen beibehalten werden.
+# Das bedeutet also, dass vor einer Manipulation am Dataframe eine exakte Kopie der betroffenen Spalte/Zeile erstellt
+# wird. Einige Male war ich mir nicht mehr ganz sicher, an welcher Kolonne ich die Manipulation vorgenommen hatte oder
+# droppte Daten, die ich eigentlich noch gebraucht hätte. Deshalb muss ein Naming-Scheme entwickelt und innerhalb des
+# Teams angewendet und eingalten werden. Dabei haben sich die Tipps der Dozenten als sehr wertvoll erwiesen.

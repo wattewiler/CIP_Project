@@ -5,17 +5,17 @@ import pandas as pd
 df = pd.read_csv('b2_wolympics_src.csv', encoding='utf-8')
 csv_output_name = 'b2_wolympics_stage.csv'
 
-# Überblick der eingelesenen Daten
+# Hier verschaffen wir uns einen Überblick der eingelesenen Daten
 df.info()
 
 # Eingehender Check der Daten (bei einem kleinen Dataframe kein Problem)
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print(df)
 
-# Alle Zeilen, die komplett leer sind (NaN, also keine Values haben), werden gedroppt
+# Alle Zeilen, die komplett leer sind (NaN, also keine Values haben), werden jetzt gedroppt
 df = df.dropna(how='all')
 
-# Alle Kolonnen, die nicht gebraucht werden, werden gedroppt
+# Alle Kolonnen, die nicht gebraucht werden, werden ebenso gedroppt
 to_drop = ['Teilnehmer',
            'Wettbewerbe',
            'Beste Nationen',
@@ -41,14 +41,14 @@ df['Land_code_stage'] = df['Land_code'].replace(['F', 'CH', 'D', 'JAP', 'IT', 'J
 # Der Vollständigkeit halber eine weitere Spalte zur Deklaration des Anlasses
 df['Anlass_stage'] = 'Olympische Winterspiele'
 
-# Abschliessend nochmals ein kurzer Check, ob das Dataframe sauber aufbereitet ist. Dafür werden alle Kolonnen ausgegeben
+# Abschliessend nochmals ein kurzer Check, ob das Dataframe sauber aufbereitet ist. Dafür werden die Kolonnen ausgegeben
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print(df)
 
 # Alle Kolonnen, die nach dem Cleaning nicht mehr gebraucht werden, werden vor Output gedroppt
 to_drop = ['Jahr',
            'Land',
-           'Land_code',]
+           'Land_code', ]
 
 df.drop(to_drop, inplace=True, axis=1)
 
@@ -58,7 +58,11 @@ df['Jahr'] = df['Jahr_stage']
 df['Anlass'] = df['Anlass_stage']
 
 # Schlussendlich werden die Daten in ein neues CSV-File geschrieben, der Index dabei entfernt, der Header belassen
-df[['Jahr', 'Land_code', 'Anlass']].to_csv(csv_output_name, index = False, header=True)
+df[['Jahr', 'Land_code', 'Anlass']].to_csv(csv_output_name, index=False, header=True)
 
-####### LESSONS LEARNED #######
-# ASDFASDFASDF
+#### LESSONS LEARNED ####
+# Bei der Aufbereitung von gescrapten Daten ist es eminent wichtig, dass die Originalinformationen beibehalten werden.
+# Das bedeutet also, dass vor einer Manipulation am Dataframe eine exakte Kopie der betroffenen Spalte/Zeile erstellt
+# wird. Einige Male war ich mir nicht mehr ganz sicher, an welcher Kolonne ich die Manipulation vorgenommen hatte oder
+# droppte Daten, die ich eigentlich noch gebraucht hätte. Deshalb muss ein Naming-Scheme entwickelt und innerhalb des
+# Teams angewendet und eingalten werden. Dabei haben sich die Tipps der Dozenten als sehr wertvoll erwiesen.
