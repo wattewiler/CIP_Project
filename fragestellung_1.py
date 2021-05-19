@@ -1,3 +1,8 @@
+################################# FRAGESTELLUNG 1 #################################
+# Welches Land war zwischen 1950-2019 am häufigsten Gastgeber eines
+# Sportgrossanlasses (Sommer- und Winterolympiade, Fussballweltmeisterschaft)?
+
+
 # Benötigte Libraries laden
 import pandas as pd
 
